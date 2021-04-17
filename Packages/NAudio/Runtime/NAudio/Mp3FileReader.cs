@@ -20,6 +20,7 @@ namespace NAudio.Wave
         /// Will not dispose of this stream itself
         /// </summary>
         /// <param name="inputStream">The incoming stream containing MP3 data</param>
+        /// <param name="decompressorBuilder"></param>
         public Mp3FileReader(Stream inputStream, FrameDecompressorBuilder decompressorBuilder)
             : base(inputStream, decompressorBuilder, false)
         {
