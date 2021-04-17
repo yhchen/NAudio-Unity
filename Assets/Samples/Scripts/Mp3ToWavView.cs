@@ -19,7 +19,7 @@ public class Mp3ToWavView : MonoBehaviour
 	private static void ConvertMp3ToWav(string sourceFile, string desFile)
 	{
 		using var reader =
-			new NAudio.Wave.Mp3FileReader(sourceFile, wf => new NLayer.NAudioSupport.Mp3FrameDecompressor(wf));
+			new NAudio.Wave.Mp3FileReader(sourceFile);
 		NAudio.Wave.WaveFileWriter.CreateWaveFile(desFile, reader);
 		Debug.Log($"{sourceFile} => {desFile}");
 	}

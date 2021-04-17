@@ -10,8 +10,8 @@ namespace NAudio.Wave
     public class Mp3FileReader : Mp3FileReaderBase
     {
         /// <summary>Supports opening a MP3 file</summary>
-        public Mp3FileReader(string mp3FileName, FrameDecompressorBuilder decompressorBuilder)
-            : base(File.OpenRead(mp3FileName), decompressorBuilder, true)
+        public Mp3FileReader(string mp3FileName)
+            : base(File.OpenRead(mp3FileName), CreateAcmFrameDecompressor, true)
         {
         }
 
@@ -20,11 +20,26 @@ namespace NAudio.Wave
         /// Will not dispose of this stream itself
         /// </summary>
         /// <param name="inputStream">The incoming stream containing MP3 data</param>
-        /// <param name="decompressorBuilder"></param>
-        public Mp3FileReader(Stream inputStream, FrameDecompressorBuilder decompressorBuilder)
-            : base(inputStream, decompressorBuilder, false)
+        public Mp3FileReader(Stream inputStream)
+            : base(inputStream, CreateAcmFrameDecompressor, false)
         {
 
+        }
+
+        /// <summary>
+        /// Creates an ACM MP3 Frame decompressor. This is the default with NAudio
+        /// </summary>
+        /// <param name="mp3Format">A WaveFormat object based </param>
+        /// <returns></returns>
+        public static IMp3FrameDecompressor CreateAcmFrameDecompressor(WaveFormat mp3Format)
+        {
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+            return new AcmMp3FrameDecompressor(mp3Format);
+            // new DmoMp3FrameDecompressor(this.Mp3WaveFormat); 
+#else
+            // use NLayer instead for the platform which are not win32
+            return new NLayer.NAudioSupport.Mp3FrameDecompressor(mp3Format);
+#endif
         }
     }
 }

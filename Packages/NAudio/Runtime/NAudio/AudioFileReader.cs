@@ -55,7 +55,7 @@ namespace NAudio.Wave
             }
             else if (fileName.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase))
             {
-                readerStream = new Mp3FileReader(fileName, wf => new NLayer.NAudioSupport.Mp3FrameDecompressor(wf));
+                readerStream = new Mp3FileReader(fileName);
             }
             else if (fileName.EndsWith(".aiff", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".aif", StringComparison.OrdinalIgnoreCase))
             {
@@ -64,8 +64,8 @@ namespace NAudio.Wave
             else
             {
                 // fall back to media foundation reader, see if that can play it
-                // fixme: macos not found!!!
                 // readerStream = new MediaFoundationReader(fileName);
+                // fixme: not available for os macos aos ios etc...
             }
         }
         /// <summary>
