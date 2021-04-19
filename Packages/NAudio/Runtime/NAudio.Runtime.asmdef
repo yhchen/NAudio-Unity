@@ -1,5 +1,5 @@
 {
-    "name": "BuildEditor",
+    "name": "NAudio.Runtime",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [],
